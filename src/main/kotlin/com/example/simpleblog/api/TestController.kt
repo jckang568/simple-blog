@@ -7,5 +7,4 @@ import org.springframework.web.bind.annotation.RestController
 class TestController {
     @GetMapping("/health")
     fun healthTest(): String = "hello kotlin blog"
-
 }
