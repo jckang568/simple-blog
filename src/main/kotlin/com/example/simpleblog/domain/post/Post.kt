@@ -1,19 +1,26 @@
 package com.example.simpleblog.domain.post
 
 import com.example.simpleblog.domain.AuditingEntity
+import com.example.simpleblog.domain.member.Member
 import jakarta.persistence.*
 
 
 @Entity
 @Table(name = "Post")
 class Post(
-    title:String
-    , content:String
+    title: String
+    , content: String
+    , member: Member
 ) : AuditingEntity() {
     @Column(name = "title", nullable = false)
     var title: String = title
-        private set
+        protected set
+
     @Column(name = "content")
     var content: String = content
-        private set
+        protected set
+
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Member::class)
+    var member: Member = member
+        protected set
 }

@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.net.URI
 
 plugins {
     id("org.springframework.boot") version "3.1.2"
@@ -14,7 +15,8 @@ allOpen {
     annotation("jakarta.persistence.Embeddable")
     annotation("jakarta.persistence.MappedSuperclass")
 }
-
+val fakerVersion = "1.14.0"
+val p6spyVersion = "1.9.0"
 group = "com.example"
 version = "0.0.1-SNAPSHOT"
 
@@ -24,6 +26,10 @@ java {
 
 repositories {
     mavenCentral()
+    maven {
+        url = URI("https://oss.sonatype.org/content/repositories/snapshots/")
+    }
+
 }
 
 extra["snippetsDir"] = file("build/generated-snippets")
@@ -42,8 +48,10 @@ dependencies {
     runtimeOnly("com.h2database:h2")
     runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-//    testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
+//    testImplementation("o rg.springframework.restdocs:spring-restdocs-mockmvc")
 //    testImplementation("org.springframework.security:spring-security-test")
+    implementation("io.github.serpro69:kotlin-faker:$fakerVersion")
+    implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:${p6spyVersion}")
 }
 
 tasks.withType<KotlinCompile> {
